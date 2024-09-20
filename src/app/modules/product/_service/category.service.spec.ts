@@ -1,23 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Category } from '../_model/category';  // Importa la clase Category
+import { TestBed } from '@angular/core/testing';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CategoryService {
+import { CategoryService } from './category.service';
 
-  constructor() { }
+describe('CategoryService', () => {
+  let service: CategoryService;
 
-  // Función que retorna un arreglo de objetos Category
-  getCategories(): Category[] {
-    // Declarar un arreglo de objetos 'Category'
-    const categories: Category[] = [
-      new Category(1, 'Electrónica', 'tech', true),
-      new Category(2, 'Ropa', 'fashion', true),
-      new Category(3, 'Alimentos', 'food', false)
-    ];
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(CategoryService);
+  });
 
-    // Retornar el arreglo
-    return categories;
-  }
-}
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});

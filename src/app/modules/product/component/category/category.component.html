@@ -1,1 +1,21 @@
-<p>category works!</p>
+<div class="container">
+  <h2>Lista de Categorías</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tag</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category.category_id }}</td>
+        <td>{{ category.category }}</td>
+        <td>{{ category.tag }}</td>
+        <td>{{ category.status ? 'Activo' : 'Inactivo' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
