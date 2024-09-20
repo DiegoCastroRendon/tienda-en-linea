@@ -1,1 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #1e3c72, #2a5298); /* Fondo de gradiente */
+    color: #333;
+}
+
+.main-container {
+    max-width: 1280px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffffd9; /* Fondo transparente */
+    border-radius: 10px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.table thead th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.card-custom {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.logo-nba {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Sidebar mejorado */
+#sidebar-wrapper {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    height: auto; /* Cambié de 100vh a auto */
+    min-height: 100vh;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    background: #003459;
+    color: #ffffff;
+    padding: 15px;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+#sidebar-wrapper .list-group-item {
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background: #005b96;
+    color: white;
+    transition: background 0.3s;
+}
+
+#sidebar-wrapper .list-group-item i {
+    margin-right: 10px;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #003459;
+    color: white;
+    text-align: center;
+}
