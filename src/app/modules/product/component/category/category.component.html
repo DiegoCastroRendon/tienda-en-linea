@@ -19,3 +19,56 @@
     </tbody>
   </table>
 </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">Nueva Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+                  <div class="mb-3">
+                    <label for="category" class="form-label">Nombre de la Categoría</label>
+                    <input id="category" type="text" class="form-control" formControlName="category" [ngClass]="{'is-invalid': categoryForm.get('category').invalid && categoryForm.get('category').touched}">
+                    <div *ngIf="categoryForm.get('category').invalid && categoryForm.get('category').touched" class="invalid-feedback">
+                      El nombre de la categoría es obligatorio.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="tag" class="form-label">Acrónimo</label>
+                    <input id="tag" type="text" class="form-control" formControlName="tag" [ngClass]="{'is-invalid': categoryForm.get('tag').invalid && categoryForm.get('tag').touched}">
+                    <div *ngIf="categoryForm.get('tag').invalid && categoryForm.get('tag').touched" class="invalid-feedback">
+                      El acrónimo es obligatorio.
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
