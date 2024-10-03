@@ -1,77 +1,27 @@
 <div class="d-flex" id="wrapper">
-  <!-- Sidebar -->
-  <div class="border-end" id="sidebar-wrapper">
-      <div class="sidebar-heading border-bottom">Practica 3</div>
-      <div class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-home"></i> Dashboard</a>
-          <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-cog"></i> Configuración</a>
-          <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-info-circle"></i> Acerca de</a>
-      </div>
+    <!-- Sidebar -->
+    <div class="border-end" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom">Practica 3</div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-home"></i> Dashboard</a>
+            <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-cog"></i> Configuración</a>
+            <a class="list-group-item list-group-item-action p-3" href="#"><i class="fas fa-info-circle"></i> Acerca de</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+  
+    <!-- Contenido cargado dinámicamente con router-outlet -->
+    <div id="page-content-wrapper" class="main-container">
+        <div class="container-fluid px-4">
+            <router-outlet></router-outlet>
+        </div>
+  
+        <!-- Pie de página -->
+        <footer>
+            <p>&copy; Jueves 19 de septiembre del 2024 Practica 5.
+            <a href="#"><i class="fab fa-facebook text-white"></i></a> 
+            <a href="#"><i class="fab fa-twitter text-white"></i></a></p>
+        </footer>
+    </div>
   </div>
-  <!-- /#sidebar-wrapper -->
-
-  <!-- Contenido -->
-  <div id="page-content-wrapper" class="main-container">
-      <div class="container-fluid px-4">
-          <h1 class="mt-4">Categorías</h1>
-          <!-- Card de Categorías con clase personalizada -->
-          <div class="card card-custom mt-4">
-              <div class="card-header">
-                  <img src="https://cdn.mos.cms.futurecdn.net/CPAhzgowLi2NtrP9HfVy9Y-1000-80.png.webp" alt="Logo de la NBA" class="logo-nba">
-                  Equipos de la NBA
-              </div>
-              <div class="card-body">
-                  <table class="table table-striped table-container">
-                      <thead>
-                          <tr>
-                              <th scope="col">id_category</th>
-                              <th scope="col">category</th>
-                              <th scope="col">tag</th>
-                              <th scope="col">status</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>Lakers</td>
-                              <td>Equipo</td>
-                              <td>Activo</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>Celtics</td>
-                              <td>Equipo</td>
-                              <td>Activo</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>Bulls</td>
-                              <td>Equipo</td>
-                              <td>Activo</td>
-                          </tr>
-                          <tr>
-                              <td>4</td>
-                              <td>Warriors</td>
-                              <td>Equipo</td>
-                              <td>Activo</td>
-                          </tr>
-                          <tr>
-                              <td>5</td>
-                              <td>Heat</td>
-                              <td>Equipo</td>
-                              <td>Activo</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-
-      <!-- Pie de página -->
-      <footer>
-          <p>&copy; Jueves 19 de septiembre del 2024 Practica 5.
-          <a href="#"><i class="fab fa-facebook text-white"></i></a> 
-          <a href="#"><i class="fab fa-twitter text-white"></i></a></p>
-      </footer>
-  </div>
-</div>
+  
