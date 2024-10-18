@@ -1,52 +1,42 @@
-// _service/category.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  // Importar HttpClient para hacer las solicitudes HTTP
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../_model/category';
 import { api_dwb_uri } from '../../../shared/api-dwb-uri';
+import { Category } from '../_model/category';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class CategoryService{
   private source = "/category";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Método para obtener todas las categorías
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.source}/getCategories`);
+  activeCategory(categoryId:number):Observable<any>{
+    return this.http.put(api_dwb_uri + this.source + "/" + categoryId + "/activate", null);
+  }
+  
+  createCategory(category: any): Observable<any>{
+    return this.http.post(api_dwb_uri + this.source, category);
   }
 
-  // Método para obtener una categoría por ID
-  getCategory(id: number): Observable<Category> {
-    return this.http.get<Category>(`${this.source}/${id}`);
+  deleteCategory(categoryId:number): Observable<any>{
+    return this.http.delete(api_dwb_uri + this.source + "/" + categoryId);
   }
 
-  // Método para obtener las categorías activas
-  getActiveCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.source}/active`);
+  getActiveCategories(){
+    return this.http.get(api_dwb_uri + this.source + "/active")
   }
 
-  // Método para crear una nueva categoría
-  createCategory(category: Category): Observable<Category> {
-    return this.http.post<Category>(`${this.source}`, category);
+  getCategory(categoryId:number) : Observable<any>{
+    return this.http.get(api_dwb_uri + this.source + "/" + categoryId); 
   }
 
-  // Método para actualizar una categoría existente
-  updateCategory(id: number, category: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.source}/${id}`, category);
+  getCategories() : Observable<any>{
+    return this.http.get(api_dwb_uri + this.source);
   }
-
-  // Método para eliminar (desactivar) una categoría
-  deleteCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.source}/${id}`);
-  }
-
-  // Método para activar una categoría
-  activateCategory(id: number): Observable<Category> {
-    return this.http.put<Category>(`${this.source}/${id}/activate`, null);
+  
+  updateCategory(category:Category,categoryId:number) : Observable<any>{
+    return this.http.put(api_dwb_uri + this.source + "/" + categoryId, category);
   }
 }

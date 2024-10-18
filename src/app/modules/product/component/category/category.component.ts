@@ -1,132 +1,174 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { CategoryService } from '../../_service/category.service';
 import { Category } from '../../_model/category';
-import Swal from 'sweetalert2';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'
+import { SharedModule } from '../../../../shared/shared-module';
+import { SwalMessages } from '../../../../shared/swal-messages';
+
+declare var $: any;
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule],
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrl: './category.component.css'
 })
-export class CategoryComponent implements OnInit {
-  categories: Category[] = [];
-  categoryForm: FormGroup;
-  selectedCategory: Category | null = null;
-  showModal: boolean = false;
 
-  constructor(private categoryService: CategoryService) {
-    this.categoryForm = new FormGroup({
-      category: new FormControl('', [Validators.required]),
-      tag: new FormControl('', [Validators.required])
+export class CategoryComponent {
+  categories:Category[] = [];
+  form:FormGroup;
+  swal: SwalMessages = new SwalMessages(); // swal messages
+  submitted = false;
+  categoryUpdate:number = 0;
+
+  loading = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService
+  ){
+    this.form = this.formBuilder.group({
+      category: ["", [Validators.required]],
+      tag: ["", [Validators.required]]
+    })
+  }
+
+  getCategories(){
+    this.loading = true;
+    this.categoryService.getCategories().subscribe({
+      next: (v) => {
+        console.log(v);
+        this.categories = v;
+        this.loading= false;
+      },
+      error: (e) => {
+        console.log(e);
+        this.swal.errorMessage(e.error!.message);
+        this.loading = false;
+      }
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.getCategories();
   }
 
-  // Método que llama al servicio para obtener las categorías de la API
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe(
-      (categories: Category[]) => {
-        this.categories = categories;
-      },
-      (error) => {
-        Swal.fire('Error', 'No se pudieron cargar las categorías', 'error');
-      }
-    );
+  // Modals
+  showModalForm(){
+    this.submitted = false;
+    this.form.reset();
+    $("#modalForm").modal("show");
   }
 
-  // Método para crear una nueva categoría usando la API
-  onSubmit(): void {
-    if (this.categoryForm.valid) {
-      const newCategory: Category = {
-        category_id: this.selectedCategory ? this.selectedCategory.category_id : 0, // Si hay una categoría seleccionada, es una actualización
-        category: this.categoryForm.value.category,
-        tag: this.categoryForm.value.tag,
-        status: true
-      };
-
-      if (this.selectedCategory) {
-        // Actualizar categoría existente
-        this.categoryService.updateCategory(newCategory.category_id, newCategory).subscribe(
-          (response: Category) => {
-            Swal.fire('Éxito', 'Categoría actualizada correctamente', 'success');
-            this.getCategories();
-            this.closeModal();
-          },
-          (error) => {
-            Swal.fire('Error', 'No se pudo actualizar la categoría', 'error');
-          }
-        );
-      } else {
-        // Crear nueva categoría
-        this.categoryService.createCategory(newCategory).subscribe(
-          (response: Category) => {
-            Swal.fire('Éxito', 'Categoría añadida correctamente', 'success');
-            this.getCategories();
-            this.closeModal();
-          },
-          (error) => {
-            Swal.fire('Error', 'No se pudo crear la categoría', 'error');
-          }
-        );
-      }
-    }
+  hideModalForm(){
+    $("#modalForm").modal("hide");
   }
 
-  // Método para abrir el modal con una categoría seleccionada para actualizar
-  openModalForUpdate(category: Category): void {
-    this.selectedCategory = category;
-    this.categoryForm.setValue({
-      category: category.category,
-      tag: category.tag
+  disableCategory(id:number){
+    this.swal.confirmMessage.fire({
+      title: "Favor de confirmar la eliminacion"
+    }).then((result) =>{
+      this.categoryService.deleteCategory(id).subscribe({
+        next: (v) => {
+          this.swal.successMessage(v.message);
+          this.getCategories();
+        },
+        error: (e) => {
+          console.log(e);
+          this.swal.errorMessage(e.error.message);
+        }
+      });
     });
-    this.showModal = true;
   }
 
-  // Método para desactivar una categoría
-  deleteCategory(categoryId: number): void {
-    this.categoryService.deleteCategory(categoryId).subscribe(
-      () => {
-        Swal.fire('Éxito', 'Categoría desactivada correctamente', 'success');
-        this.getCategories();
-      },
-      (error) => {
-        Swal.fire('Error', 'No se pudo desactivar la categoría', 'error');
+  enableCategory(id:number){
+    this.swal.confirmMessage.fire({
+      title: "Favor de confirmar la activación",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categoryService.activeCategory(id).subscribe({
+          next: (v) => {
+            this.swal.successMessage(v.message);
+            this.getCategories();
+          },
+          error: (e) => {
+            console.log(e);
+            this.swal.errorMessage(e.error.message);
+          }
+        });
       }
-    );
+    });
   }
 
-  // Método para activar una categoría
-  activateCategory(categoryId: number): void {
-    this.categoryService.activateCategory(categoryId).subscribe(
-      (response: Category) => {
-        Swal.fire('Éxito', 'Categoría activada correctamente', 'success');
+  onSubmit(){
+    // validación del formulario 
+    this.submitted = true;
+    if(this.form.invalid){return;}
+    this.submitted = false;
+
+    // valida si se está registrando o actualizando una categoria
+    if(this.categoryUpdate == 0){
+      this.onSubmitCreate();
+    }else{
+      this.onSubmitUpdate();
+    }
+    /*
+    this.submitted = false;
+    let id = this.categories.length + 1;
+    let nuevaCat = new Category(id, this.form.controls['category'].value!, this.form.controls['tag'].value!, 1);
+    this.categories.push(nuevaCat);
+    this.hideModalForm();
+    //alert("La categoria ha sido registrada");
+    this.swal.successMessage("La categoria ha sido registrada"); // show message*/
+  }
+
+  onSubmitCreate(){
+    this.categoryService.createCategory(this.form.value).subscribe({
+      next: (v) => {
         this.getCategories();
+        this.hideModalForm();
+        this.resetVariables();
+        this.swal.successMessage(v.message);
       },
-      (error) => {
-        Swal.fire('Error', 'No se pudo activar la categoría', 'error');
+      error: (e) => {
+        console.log(e);
+        this.swal.errorMessage(e.error.message);
       }
-    );
+    });
   }
 
-  // Método para abrir el modal para agregar una nueva categoría
-  openModal(): void {
-    this.selectedCategory = null; // Reiniciar la categoría seleccionada
-    this.categoryForm.reset();
-    this.showModal = true;
+  onSubmitUpdate(){
+    this.categoryService.updateCategory(this.form.value, this.categoryUpdate).subscribe({
+      next: (v) => {
+        this.getCategories();
+        this.hideModalForm();
+        this.resetVariables();
+        this.swal.successMessage(v.message);
+      },
+      error: (e) => {
+        console.log(e);
+        this.swal.errorMessage("No se pudo actualizar la categoria");
+      }
+    });
   }
 
-  // Método para cerrar el modal
-  closeModal(): void {
-    this.showModal = false;
-    this.categoryForm.reset();
-    this.selectedCategory = null;
+  updateCategory(category: Category){
+    this.resetVariables();
+    this.showModalForm();
+
+    this.categoryUpdate = category.category_id;
+    this.form.reset();
+    this.form.controls['category'].setValue(category.category);
+    this.form.controls['tag'].setValue(category.tag);
+
+    this.submitted = false;
+    $("#modalForm").modal("show");
+  }
+
+  resetVariables(){
+    this.form.reset();
+    this.submitted = false;
+    this.categoryUpdate = 0;
   }
 }
