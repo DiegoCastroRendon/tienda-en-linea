@@ -3,9 +3,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoryService } from '../../_service/category.service';
 import { Category } from '../../_model/category';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-category',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
