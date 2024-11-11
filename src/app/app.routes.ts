@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/auth/component/login/login.component';
 import { RegisterComponent } from './modules/auth/component/register/register.component';
 import { SecuredComponent } from './modules/auth/component/secured/secured.component';
@@ -13,44 +14,16 @@ import { CustomerImageComponent } from './modules/customer/component/customer-im
 
 export const routes: Routes = [
     {
-        path:"",
-        component : MainComponent
+        path: "",
+        component: HomeComponent  // Cambiado a HomeComponent
     },
-    {path: "categoria",
-         component: CategoryComponent
-    },
-    {
-        path:"producto",
-        component: ProductComponent
-    },
-    {
-        path:"producto/:gtin",
-        component : ProductImageComponent
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
-    {
-        path: 'secured',
-        component: SecuredComponent, 
-        canActivate: [authenticationGuard]
-    },
-    {
-        path: 'region',
-        component: RegionComponent
-    },
-    {
-        path: 'cliente',
-        component: CustomerComponent
-    },
-    {
-        path: 'cliente/:rfc',
-        component: CustomerImageComponent
-    }
-
-]
+    { path: "categoria", component: CategoryComponent },
+    { path: "producto", component: ProductComponent },
+    { path: "producto/:gtin", component: ProductImageComponent },
+    { path: "login", component: LoginComponent },
+    { path: "register", component: RegisterComponent },
+    { path: "secured", component: SecuredComponent, canActivate: [authenticationGuard] },
+    { path: "region", component: RegionComponent },
+    { path: "cliente", component: CustomerComponent },
+    { path: "cliente/:rfc", component: CustomerImageComponent }
+];
