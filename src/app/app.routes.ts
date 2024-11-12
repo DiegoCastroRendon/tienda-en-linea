@@ -11,6 +11,9 @@ import { MainComponent } from './modules/layout/component/main/main.component';
 import { RegionComponent } from './modules/customer/component/region/region.component';
 import { CustomerComponent } from './modules/customer/component/customer/customer.component';
 import { CustomerImageComponent } from './modules/customer/component/customer-image/customer-image.component';
+import { InvoiceComponent } from './modules/invoice/component/invoice/invoice.component';
+import { InvoiceDetailComponent } from './modules/invoice/component/invoice-detail/invoice-detail.component';
+
 
 export const routes: Routes = [
     {
@@ -25,5 +28,7 @@ export const routes: Routes = [
     { path: "secured", component: SecuredComponent, canActivate: [authenticationGuard] },
     { path: "region", component: RegionComponent },
     { path: "cliente", component: CustomerComponent },
-    { path: "cliente/:rfc", component: CustomerImageComponent }
+    { path: "cliente/:rfc", component: CustomerImageComponent },
+    { path: "invoice", component: InvoiceComponent },
+    { path: "invoice/:id", component: InvoiceDetailComponent}
 ];
