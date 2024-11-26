@@ -1,29 +1,55 @@
-.card-body-customer{
-    padding: 16px;
-}
-
-
-.customer-image{
-    border-radius: 100%;
-    width: 240px;
-    height: 240px;
-}
-
-
-.edit-customer-image{
-    color: blue;
-    margin-bottom: 16px;
+/* Nuevo estilo para el componente de imagen del cliente */
+.card-body-customer {
+    padding: 2rem;
+  }
+  
+  .customer-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .edit-customer-image {
+    color: #3498db;
+    margin-bottom: 1rem;
     cursor: pointer;
-}
-
-
-.customer-title{
-    font-size: 32px;
-    margin-bottom: 16px;
-}
-
-
-.btn-edith, .btn-delete{
+    transition: color 0.3s;
+  }
+  
+  .edit-customer-image:hover {
+    color: #2980b9;
+  }
+  
+  .customer-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+  
+  .btn-edit,
+  .btn-delete {
     width: 140px;
-    margin-right: 24px;
-}
+    margin-right: 1rem;
+  }
+  
+  .btn-edit {
+    background-color: #2ecc71;
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-edit:hover {
+    background-color: #27ae60;
+  }
+  
+  .btn-delete {
+    background-color: #e74c3c;
+    border: none;
+    color: #fff;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c0392b;
+  }
+  

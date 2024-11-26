@@ -1,0 +1,32 @@
+/* Nuevo estilo para el componente seguro */
+.secured-container {
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+  
+  .secured-container h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+  }
+  
+  .secured-container p {
+    font-size: 1.2rem;
+    color: #34495e;
+  }
+  
+  .logout-btn {
+    margin-top: 2rem;
+    background-color: #e74c3c;
+    border: none;
+    padding: 0.75rem 2rem;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background-color: #c0392b;
+  }
+  
