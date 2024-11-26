@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "practica-frontend": {
+    "tiendaEnLinea": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/practica-frontend",
+            "outputPath": "dist/tienda-en-linea",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "practica-frontend:build:production"
+              "buildTarget": "tiendaEnLinea:build:production"
             },
             "development": {
-              "buildTarget": "practica-frontend:build:development"
+              "buildTarget": "tiendaEnLinea:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -11,5 +11,5 @@ import { NavbarComponent } from './modules/layout/component/navbar/navbar.compon
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'practica-frontend';
+  title = 'tiendaEnLinea';
 }
