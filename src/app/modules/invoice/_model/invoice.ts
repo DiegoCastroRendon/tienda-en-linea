@@ -2,12 +2,14 @@
 
 import { Item } from "./item";
 
-export class Invoice{
-    invoice_id : number = 0;
-    created_at : Date = new Date();
-    items : Item[] = [];
-    rfc : String = '';
-    subtotal : number = 0;
-    taxes : number = 0;
-    total : number = 0;
+export class Invoice {
+    constructor(
+        public invoice_id: number = 0,
+        public created_at: Date = new Date(),
+        public items: Item[] = [],
+        public rfc: string = '',
+        public subtotal: number = 0,
+        public taxes: number = 0,
+        public total: number = 0
+    ) {}
 }

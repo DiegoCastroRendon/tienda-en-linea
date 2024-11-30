@@ -60,7 +60,7 @@ export class LoginComponent {
             }
             console.log('El token devuelto no fue poblado')
             return;
-          }          
+          }   
         },
         (errorResponse: HttpErrorResponse) => {
           alert(errorResponse.error.message);

@@ -12,9 +12,8 @@ export class NavigationService {
 
   public startSaveHistory(){
     this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd){
-        this.history.push(event.urlAfterRedirects);
-      }
+
+      if(event instanceof NavigationEnd){this.history.push(event.urlAfterRedirects);}
     });
   }
 
@@ -26,8 +25,10 @@ export class NavigationService {
     this.history.pop();
     
     if(this.history.length > 0){
+
       this.location.back();
     } else {
+      
       this.router.navigateByUrl("/");
     }
   }

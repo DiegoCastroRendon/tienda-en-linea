@@ -6,10 +6,7 @@ export const customerGuard: CanActivateFn = (route, state) => {
   let swal: SwalMessages = new SwalMessages();
   
   if(localStorage.getItem("user")){
-    //let user = JSON.parse(localStorage.getItem("user")!);
-    //if(user.rol == "USER"){
-      //return true;
-    //}
+    
     return true;
   }
 
